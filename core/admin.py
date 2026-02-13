@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Gasto
+from .models import Conta, CartaoCredito, Categoria, Lancamento
 
-@admin.register(Gasto)
-class GastoAdmin(admin.ModelAdmin):
-    # Isso faz com que os campos apareçam em colunas na listagem
-    list_display = ('data', 'descricao', 'valor', 'categoria', 'fonte_recursos')
-    # Adiciona um filtro lateral
-    list_filter = ('categoria', 'recorrencia', 'despesa_fixa')
-    # Adiciona uma barra de busca
-    search_fields = ('descricao', 'categoria')
+admin.site.register(Conta)
+admin.site.register(CartaoCredito)
+admin.site.register(Categoria)
+
+@admin.register(Lancamento)
+class LancamentoAdmin(admin.ModelAdmin):
+    list_display = ('data', 'descricao', 'valor', 'tipo', 'categoria', 'conta')
+    list_filter = ('tipo', 'categoria', 'conta')
+    search_fields = ('descricao',)
